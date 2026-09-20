@@ -1,45 +1,46 @@
 public class ConfigurationManager {
+    private static ConfigurationManager instance;
 
-  private static final ConfigurationManager instance = 
-        new ConfigurationManager(); 
+    private int volume = 50;
+    private String resolution = "1920x1080";
+    private boolean fullscreen = false;
 
-  private int volume = 50; 
-  private String resolution = "1920x1080";
-  private boolen fullscreen = false;
+    private ConfigurationManager() {
+        System.out.println("Settings created");
+    }
 
-  private ConfigurationManager() {
-  }
+    public static synchronized ConfigurationManager getInstance() {
+        if (instance == null) {
+            instance = new ConfigurationManager();
+        }
+        return instance;
+    }
 
-  public static ConfigurationManager getInstance() {
-    return instance;
-  }
+    public int getVolume() {
+        return volume;
+    }
 
+    public void setVolume(int newVolume) {
+        if (newVolume >= 0 && newVolume <= 100) {
+            volume = newVolume;
+        } else {
+            System.out.println("Volume has to be from 0 to 100.");
+        }
+    }
 
-  public intVolume() {
-    return Volume;
-  }
-
-  public void setVolume(int volume) {
-    if (volume < 0 | | volume > 100) {
-      throw new IllegalArgumentException(
-        " Volume must be between 0 and 100.");
-  }
-    this.volume = volume;
-  }
-
-   public String getResolution() {
+    public String getResolution() {
         return resolution;
     }
 
-    public void setResolution(String resolution) {
-        this.resolution = resolution;
+    public void setResolution(String newResolution) {
+        resolution = newResolution;
     }
 
     public boolean isFullscreen() {
         return fullscreen;
     }
 
-    public void setFullscreen(boolean fullscreen) {
-        this.fullscreen = fullscreen;
+    public void setFullscreen(boolean newFullscreen) {
+        fullscreen = newFullscreen;
     }
 }
